@@ -10,8 +10,8 @@ function showLocalStorageData() {
     var todosData = window.localStorage.getItem('todosArray');
     todosData = JSON.parse(todosData);
 
-    if (todosData!=null) {
-        
+    if (todosData != null) {
+
         todos = todosData;
     }
 
@@ -26,7 +26,7 @@ function addTodo() {
     //Regex... for number validation
     var onlyNumbers = /^\d+$/;
 
-    if (input.value.length <=1 || onlyNumbers.test(input.value)) {
+    if (input.value.length <= 1 || onlyNumbers.test(input.value)) {
         alert('please input a valid todo');
         // input.value = '';
         return;
@@ -66,10 +66,10 @@ function renderTodos() {
 
             todoParentElm.innerHTML += `
                     <div class='todo done'>
-                        <div class='todo-check'></div>
-                        <span>${todos[index].text}</span>
-                        <div class='todo-actions'>                            
-                            <button class='btn-delete' onclick='deleteTodo(${todos[index].id})'>Delete</button>
+                    <div class='todo-check'></div>
+                    <span>${todos[index].text}</span>
+                    <div class='todo-actions'>                            
+                    <button class='btn-delete' onclick='deleteTodo(${todos[index].id})'>Delete</button>
                         </div>
                     </div>`;
 
@@ -78,13 +78,13 @@ function renderTodos() {
         else {
 
             todoParentElm.innerHTML += `
-                    <div class='todo'>
-                        <div class='todo-check' onclick='doneTodo(${todos[index]})'></div>
+            <div class='todo'>
+            <div class='todo-check' onclick='doneTodo(${todos[index]})'></div>
                         <span>${todos[index].text}</span>
                         <div class='todo-actions'>
-                            <button class='btn-edit' onclick='editTodo(${todos[index].id})'>Edit</button>
-                            <button class='btn-delete' onclick='deleteTodo(${todos[index].id})'>Delete</button>
-                            <button class='btn-done-action' onclick='doneTodo(${todos[index].id})'>Done</button>
+                        <button class='btn-edit' onclick='editTodo(${todos[index].id})'>Edit</button>
+                        <button class='btn-delete' onclick='deleteTodo(${todos[index].id})'>Delete</button>
+                        <button class='btn-done-action' onclick='doneTodo(${todos[index].id})'>Done</button>
                         </div>
                     </div>`;
         }
@@ -94,8 +94,12 @@ function renderTodos() {
 }
 
 function deleteTodo(id) {
+    var input = document.getElementById('todo-input');
     var i = searchTodo(id);
     todos.splice(i, 1);
+    addBtn.style.display = 'inline';
+    updateBtn.style.display = 'none';
+    input.value = '';
     window.localStorage.setItem('todosArray', JSON.stringify(todos));
     renderTodos();
 
@@ -118,7 +122,6 @@ function editTodo(id) {
     input.value = todos[i].text;
     todoToBeUpdate = todos[i];
     indexToBeUpdate = i;
-
 }
 
 function updateTodo() {
